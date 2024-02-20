@@ -43,3 +43,22 @@ FROM `bigquery-public-data.hacker_news.full`
 GROUP BY 1 
 ORDER BY 2 DESC
 ;
+
+
+
+-- Check `dead` column.
+SELECT 
+  dead
+  , COUNT(*) AS count_records
+FROM `bigquery-public-data.hacker_news.full`
+GROUP BY 1 
+;
+
+
+-- Check `deleted` column.
+SELECT 
+  deleted
+  , COUNT(*) AS count_records
+FROM `bigquery-public-data.hacker_news.full`
+GROUP BY 1 
+;
