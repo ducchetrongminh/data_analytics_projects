@@ -16,7 +16,7 @@ WITH rename_column AS (
     , ranking AS comment_ranking
     , deleted AS is_deleted
     , dead AS is_dead
-  FROM `vit-lam-data.public_data_sample.hacker_news`
+  FROM `bigquery-public-data.hacker_news.full`
 )
 
 , deduplicate AS (
