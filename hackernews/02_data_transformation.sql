@@ -1,3 +1,7 @@
+/*
+UPDATED AT: 2024-02-20
+*/
+
 WITH rename_column AS (
   SELECT 
     id AS hackernews_id
@@ -12,28 +16,42 @@ WITH rename_column AS (
     , ranking AS comment_ranking
     , deleted AS is_deleted
     , dead AS is_dead
-  FROM `bigquery-public-data.hacker_news.full`
+  FROM `vit-lam-data.public_data_sample.hacker_news`
+)
+
+, deduplicate AS (
+  SELECT DISTINCT *
+  FROM rename_column
 )
 
 , remove_useless_data AS (
   SELECT *
-  FROM rename_column
+  FROM deduplicate
   WHERE 
-    posted_at IS NOT NULL 
+    posted_at IS NOT NULL
     AND is_deleted IS NULL 
     AND is_dead IS NULL 
     AND hackernews_user_id IS NOT NULL
+    AND type IN ('story', 'comment')
 )
 
-SELECT
+, enrich AS (
+  SELECT 
+    *
+    , NET.REG_DOMAIN(story_url) AS story_domain
+  FROM remove_useless_data
+)
+
+SELECT 
   hackernews_id
   , hackernews_user_id
   , type
   , posted_at
   , story_title
   , story_url
+  , story_domain
   , story_score
   , text
   , parent_comment_id
   , comment_ranking
-FROM remove_useless_data
+FROM enrich
