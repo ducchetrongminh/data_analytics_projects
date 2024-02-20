@@ -55,3 +55,4 @@ SELECT
   , parent_comment_id
   , comment_ranking
 FROM enrich
+ORDER BY posted_at
