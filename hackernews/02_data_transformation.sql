@@ -33,6 +33,7 @@ WITH rename_column AS (
     AND is_dead IS NULL 
     AND hackernews_user_id IS NOT NULL
     AND type IN ('story', 'comment')
+    AND posted_at >= '2007-01-01'
 )
 
 , enrich AS (
