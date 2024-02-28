@@ -45,7 +45,6 @@ ORDER BY 2 DESC
 ;
 
 
-
 -- Check `dead` column.
 SELECT 
   dead
