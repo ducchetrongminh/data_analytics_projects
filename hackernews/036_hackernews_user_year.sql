@@ -2,8 +2,10 @@ WITH summary_stories AS (
   SELECT 
     hackernews_user_id
     , EXTRACT(YEAR FROM posted_at) AS year
-    , COUNT(CASE WHEN type = 'story' THEN hackernews_id END) AS count_stories
+    , COUNT(hackernews_id) AS count_stories
   FROM `vit-lam-data.cleansed.hackernews`
+  WHERE 
+    type = 'story'
   GROUP BY 1, 2
 )
 
