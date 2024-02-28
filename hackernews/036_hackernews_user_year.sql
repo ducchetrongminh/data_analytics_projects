@@ -67,6 +67,7 @@ WITH summary_stories AS (
 , calculate_change AS (
   SELECT 
     *
+    , COALESCE(LAG(count_stories_segment, 1) OVER (PARTITION BY hackernews_user_id ORDER BY year), '4. Inactive') AS count_stories_segment_ly
     , count_stories_segment_rank - COALESCE(LAG(count_stories_segment_rank, 1) OVER (PARTITION BY hackernews_user_id ORDER BY year), 0) AS count_stories_segment_change
   FROM make_dense
   ORDER BY 1, 2
