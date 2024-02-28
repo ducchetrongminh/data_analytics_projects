@@ -16,7 +16,7 @@ SELECT
   , NTILE(100) OVER (PARTITION BY year ORDER BY count_stories) AS count_stories_rank
   , CASE 
     WHEN count_stories >= 50 THEN '1. Very active (>= 50)'
-    WHEN count_stories >= 5 THEN '2. Normal (>=5)'
+    WHEN count_stories >= 5 THEN '2. Normal (5 - 50)'
     ELSE '3. Low (<5)' END 
     AS count_stories_segment
 FROM summary_stories
